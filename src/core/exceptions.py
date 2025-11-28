@@ -1,0 +1,2 @@
+class MahjongException(Exception):
+    pass

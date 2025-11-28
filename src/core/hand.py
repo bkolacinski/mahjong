@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Optional
 
-from .tile import Tile, TileSuit
+from tile import Tile, TileSuit
 
 
 class MeldType(Enum):
@@ -77,7 +77,20 @@ class Hand:
             return []
 
         possible_chiis = []
-        NotImplementedError()
+        for offset in [-2, -1, 0]:
+            chii_tiles = []
+            for i in range(3):
+                needed_value = tile.value + offset + i
+                if 1 > needed_value > 9:
+                    break
+                needed_tile = Tile(tile.suit, needed_value)
+                if needed_tile == tile:
+                    continue
+                if needed_tile not in self.concealed_tiles:
+                    break
+                chii_tiles.append(needed_tile)
+            if len(chii_tiles) == 2:
+                possible_chiis.append(chii_tiles)
 
         return possible_chiis
 

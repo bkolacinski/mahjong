@@ -72,7 +72,7 @@ class Hand:
     def can_kan(self, tile: Tile) -> bool:
         return self.concealed_tiles.count(tile) >= 3
 
-    def can_chii(self, tile: Tile) -> list[Optional(list[Tile])]:
+    def can_chii(self, tile: Tile) -> list[list[Tile]]:
         if tile.suit == TileSuit.HONOR:
             return []
 
@@ -94,12 +94,18 @@ class Hand:
 
         return possible_chiis
 
-    def make_pon(self, called_tile: Tile, hand_tiles: list[Tile]) -> None:
-        NotImplementedError()
+    @staticmethod
+    def make_pon(called_tile: Tile, hand_tiles: list[Tile]) -> Meld:
+        return Meld(MeldType.PON, [called_tile] +
+                    hand_tiles, is_concealed=False)
 
-    def make_kan(self, called_tile: Tile, hand_tiles: list[Tile],
+    @staticmethod
+    def make_kan(called_tile: Tile, hand_tiles: list[Tile],
                  is_concealed: bool = False) -> None:
-        NotImplementedError()
+        return Meld(MeldType.KAN, [called_tile] +
+                    hand_tiles, is_concealed=is_concealed)
 
-    def make_chii(self, called_tile: Tile, hand_tiles: list[Tile]) -> None:
-        NotImplementedError()
+    @staticmethod
+    def make_chii(called_tile: Tile, hand_tiles: list[Tile]) -> None:
+        return Meld(MeldType.CHII, [called_tile] +
+                    hand_tiles, is_concealed=False)

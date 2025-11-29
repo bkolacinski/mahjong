@@ -1,14 +1,7 @@
-from enum import Enum
 from typing import Optional
 
+from enums import MeldType
 from tile import Tile, TileSuit
-
-
-class MeldType(Enum):
-    CHII = 'chii'
-    PAIR = 'pair'
-    PON = 'pon'
-    KAN = 'kan'
 
 
 class Meld:
@@ -16,14 +9,20 @@ class Meld:
     tiles: list[Tile]
 
     is_concealed: bool
-    original_owner = None
+    _original_owner = None
 
     def __init__(self, meld_type: MeldType,
                  tiles: list[Tile], is_concealed: bool = False):
         self.meld_type = meld_type
         self.tiles = tiles
         self.is_concealed = is_concealed
-        self.original_owner = None
+        self._original_owner = None
+
+    def set_original_owner(self, owner) -> None:
+        self._original_owner = owner
+
+    def get_original_owner(self):
+        return self._original_owner
 
 
 class Hand:
@@ -64,7 +63,7 @@ class Hand:
         return len(self.concealed_tiles)
 
     def tile_count_total(self, tile: Tile) -> int:
-        NotImplementedError()
+        raise NotImplementedError()
 
     def can_pon(self, tile: Tile) -> bool:
         return self.concealed_tiles.count(tile) >= 2
@@ -101,11 +100,11 @@ class Hand:
 
     @staticmethod
     def make_kan(called_tile: Tile, hand_tiles: list[Tile],
-                 is_concealed: bool = False) -> None:
+                 is_concealed: bool = False) -> Meld:
         return Meld(MeldType.KAN, [called_tile] +
                     hand_tiles, is_concealed=is_concealed)
 
     @staticmethod
-    def make_chii(called_tile: Tile, hand_tiles: list[Tile]) -> None:
+    def make_chii(called_tile: Tile, hand_tiles: list[Tile]) -> Meld:
         return Meld(MeldType.CHII, [called_tile] +
                     hand_tiles, is_concealed=False)

@@ -1,13 +1,5 @@
-from enum import Enum
-
+from enums import TileSuit
 from exceptions import MahjongException
-
-
-class TileSuit(Enum):
-    MAN = 'm'
-    PIN = 'p'
-    SOU = 's'
-    HONOR = 'z'
 
 
 class Tile:
@@ -74,6 +66,12 @@ class Tile:
         if self.value != other.value:
             return self.value > other.value
         return self.is_red > other.is_red
+
+    def set_owner(self, owner) -> None:
+        self.owner = owner
+
+    def get_owner(self):
+        return self.owner
 
     def get_image_path(self) -> str:
         return f'resources/images/tiles/{self.__str__()}.svg'

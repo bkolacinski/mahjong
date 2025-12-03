@@ -15,8 +15,9 @@ class Player:
     is_ippatsu: bool
     riichi_turn: int | None
 
-    def __init__(self, name: str, seat_wind: Wind,
-                 starting_score: int = 25000):
+    def __init__(
+        self, name: str, seat_wind: Wind, starting_score: int = 25000
+    ):
         self.name = name
         self.score = starting_score
 
@@ -26,10 +27,12 @@ class Player:
         dealer_str = ' (Dealer)' if self.is_dealer else ''
         riichi_str = ' (Riichi)' if self.is_riichi else ''
 
-        return (f'{self.name} ({self.seat_wind.name}){dealer_str}{riichi_str}'
-                f' - Score: {self.score} - '
-                f'Hand: {len(self.hand.concealed_tiles)} tiles - '
-                f'Melds: {len(self.melds)}')
+        return (
+            f'{self.name} ({self.seat_wind.name}){dealer_str}{riichi_str}'
+            f' - Score: {self.score} - '
+            f'Hand: {len(self.hand.concealed_tiles)} tiles - '
+            f'Melds: {len(self.melds)}'
+        )
 
     def draw_tile(self, tile: Tile) -> None:
         self.hand.add_tile(tile)
@@ -80,7 +83,7 @@ class Player:
     def can_call_chi(self, tile: Tile) -> bool:
         if self.is_riichi:
             return False
-        return (True if self.hand.can_chii(tile) else False)
+        return True if self.hand.can_chii(tile) else False
 
     def add_score(self, points: int) -> None:
         self.score += points

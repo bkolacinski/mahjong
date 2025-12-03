@@ -25,15 +25,16 @@ class Tile:
         if self.suit == TileSuit.HONOR:
             if not 1 <= self.value <= 7:
                 raise MahjongException(
-                    "Honor tiles must have a value between 1 and 7.")
+                    "Honor tiles must have a value between 1 and 7."
+                )
         else:
             if not 1 <= self.value <= 9:
                 raise MahjongException(
-                    "Numbered tiles must have a value between 1 and 9.")
+                    "Numbered tiles must have a value between 1 and 9."
+                )
 
         if self.is_red and (self.suit == TileSuit.HONOR or self.value != 5):
-            raise MahjongException(
-                "Only 5-value numbered tiles can be red.")
+            raise MahjongException("Only 5-value numbered tiles can be red.")
 
     def __str__(self) -> str:
         red_marker = 'r' if self.is_red else ''
@@ -45,9 +46,11 @@ class Tile:
     def __eq__(self, other) -> bool:
         if not isinstance(other, Tile):
             return False
-        return (self.suit == other.suit and
-                self.value == other.value and
-                self.is_red == other.is_red)
+        return (
+            self.suit == other.suit
+            and self.value == other.value
+            and self.is_red == other.is_red
+        )
 
     def __lt__(self, other) -> bool:
         if not isinstance(other, Tile):

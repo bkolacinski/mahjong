@@ -11,8 +11,12 @@ class Meld:
     is_concealed: bool
     _original_owner = None
 
-    def __init__(self, meld_type: MeldType,
-                 tiles: list[Tile], is_concealed: bool = False):
+    def __init__(
+        self,
+        meld_type: MeldType,
+        tiles: list[Tile],
+        is_concealed: bool = False,
+    ):
         self.meld_type = meld_type
         self.tiles = tiles
         self.is_concealed = is_concealed
@@ -95,16 +99,20 @@ class Hand:
 
     @staticmethod
     def make_pon(called_tile: Tile, hand_tiles: list[Tile]) -> Meld:
-        return Meld(MeldType.PON, [called_tile] +
-                    hand_tiles, is_concealed=False)
+        return Meld(
+            MeldType.PON, [called_tile] + hand_tiles, is_concealed=False
+        )
 
     @staticmethod
-    def make_kan(called_tile: Tile, hand_tiles: list[Tile],
-                 is_concealed: bool = False) -> Meld:
-        return Meld(MeldType.KAN, [called_tile] +
-                    hand_tiles, is_concealed=is_concealed)
+    def make_kan(
+        called_tile: Tile, hand_tiles: list[Tile], is_concealed: bool = False
+    ) -> Meld:
+        return Meld(
+            MeldType.KAN, [called_tile] + hand_tiles, is_concealed=is_concealed
+        )
 
     @staticmethod
     def make_chii(called_tile: Tile, hand_tiles: list[Tile]) -> Meld:
-        return Meld(MeldType.CHII, [called_tile] +
-                    hand_tiles, is_concealed=False)
+        return Meld(
+            MeldType.CHII, [called_tile] + hand_tiles, is_concealed=False
+        )
